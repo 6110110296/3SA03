@@ -1,7 +1,9 @@
-import React, { useState } from 'react'; 
+import React, { useState, useEffect, useRef} from 'react'; 
 
 export default function CharacterCard(props) { 
     const [active, setActive] = useState(false); 
+
+    const attempRef = useRef(props.attempt)
 
     const activate = () => { 
         if(!active){
@@ -9,6 +11,13 @@ export default function CharacterCard(props) {
             props.activationHandler(props.value)
         }
     } 
+
+    useEffect(() => {
+        if(attempRef.current != props.attempt){
+            setActive(false);
+            attempRef.current = props.attempt
+        }
+    })  
 
     const className = `card ${active ? 'activeCard': ''}`
 
