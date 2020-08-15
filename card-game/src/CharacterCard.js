@@ -19,7 +19,10 @@ export default function CharacterCard(props) {
         }
     })  
 
-    const className = `card ${active ? 'activeCard': ''}`
+    let className = `card ${active ? 'activeCard': ''}`
+    if(props.completed == true){
+        className =  `card ${active ? 'winCard': ''}`
+    }
 
     return ( 
         <div className={className} onClick={activate}>{props.value}</div>
