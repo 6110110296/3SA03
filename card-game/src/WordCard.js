@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import _ from 'lodash';
 
 import CharacterCard from './CharacterCard';
+import ResetGameCard from './ResetGameCard';
 
 const prepareStateFormWord = given_word => {
     let word = given_word.toUpperCase()
@@ -14,9 +15,15 @@ const prepareStateFormWord = given_word => {
         completed: false
     }
 }
+
+const shuffleWord = word =>{
+    let new_word = _.shuffle(Array.from(word))
+    return 
+}
+
 export default function WordCard(props){
 
-    const [state, setState] = useState(prepareStateFormWord(props.value))
+    let [state, setState] = useState(prepareStateFormWord(props.value))
 
     const activationHandler = c =>{
         console.log(`${c} has been activated.`)
@@ -34,6 +41,20 @@ export default function WordCard(props){
             }
         }
     }
+
+    const resetGame = () =>{
+        console.log('Game was reset.')
+        const new_word = prepareStateFormWord(props.value)
+        setState({
+            ...state, 
+            word: new_word.word,
+            guess: new_word.guess, 
+            chars: new_word.chars,
+            completed: new_word.completed,
+            attempt: state.attempt + 1
+        })
+        console.log('attempt: ', state.attempt)
+    }
     return (
         <div>
             {
@@ -41,6 +62,7 @@ export default function WordCard(props){
                     <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} completed={state.completed}/>
                 )
             }
+            <ResetGameCard resetGame={resetGame}/>
         </div>
     )
 }
