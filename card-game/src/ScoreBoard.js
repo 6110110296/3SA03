@@ -1,4 +1,4 @@
-"import React, {useState} from 'react';
+import React, {useState} from 'react';
 import _, { set } from 'lodash';
 
 import WordCard from './WordCard';
