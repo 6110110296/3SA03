@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import _ from 'lodash';
 
 import CharacterCard from './CharacterCard';
-import ResetGameCard from './ResetGameCard';
+import ResetGameButton from './ResetGameButton';
 
 const prepareStateFormWord = given_word => {
     let word = given_word.toUpperCase()
@@ -11,20 +11,18 @@ const prepareStateFormWord = given_word => {
         word,
         chars,
         attempt: 1,
+        success: 0,
         guess: '',
         completed: false
     }
 }
 
-const shuffleWord = word =>{
-    let new_word = _.shuffle(Array.from(word))
-    return 
-}
-
 export default function WordCard(props){
 
-    let [state, setState] = useState(prepareStateFormWord(props.value))
+    const [state, setState] = useState(prepareStateFormWord(props.value))
 
+    const attempRef = useRef(props.attempt)
+    
     const activationHandler = c =>{
         console.log(`${c} has been activated.`)
         
@@ -34,15 +32,18 @@ export default function WordCard(props){
         if(guess.length == state.word.length){
             if(guess == state.word){
                 console.log('yeah!')
-                setState({...state, completed: true})
+                setState({...state, completed: true, success: state.success+1})
+                props.activationSetScore(true)
             }else{
                 console.log('reset, net attempt')
                 setState({...state, guess: '', attempt: state.attempt + 1})
+                props.activationSetScore(false)
+                resetWord();
             }
         }
     }
 
-    const resetGame = () =>{
+    const resetWord = () =>{
         console.log('Game was reset.')
         const new_word = prepareStateFormWord(props.value)
         setState({
@@ -51,18 +52,17 @@ export default function WordCard(props){
             guess: new_word.guess, 
             chars: new_word.chars,
             completed: new_word.completed,
-            attempt: state.attempt + 1
         })
-        console.log('attempt: ', state.attempt)
+        props.playAgain();
     }
     return (
-        <div>
+        <div className='grid-container'>
             {
                 state.chars.map((c, i) =>
-                    <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} completed={state.completed}/>
+                    <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={props.attempt} completed={state.completed}/>
                 )
             }
-            <ResetGameCard resetGame={resetGame}/>
+            <ResetGameButton resetWord={resetWord}/>
         </div>
     )
 }
