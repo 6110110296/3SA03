@@ -15,6 +15,6 @@ export default function ResetGameButton(props) {
     })
 
     return ( 
-        <div className='card' onClick={activate}>Play Again</div>
+        <div className='card resetCard' onClick={activate}>Again</div>
     )     
 }

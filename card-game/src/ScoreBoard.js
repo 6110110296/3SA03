@@ -5,14 +5,13 @@ import WordCard from './WordCard';
 
 const prepareScoreState = () => {
     return {
-        attempt: 1,
+        attempt: 0,
         success: 0,
         fail: 0
     }
 }
 
 export default function ScoreBoard(props){
-
     const [state, setScore] = useState(prepareScoreState())
 
     const activationSetScore = is_success =>{
@@ -30,7 +29,7 @@ export default function ScoreBoard(props){
             attempt: state.attempt + 1})
     }
     return (
-        <div>
+        <div className='grid-container'>
             <WordCard activationSetScore={activationSetScore} playAgain={playAgain} value={props.value} attempt={state.attempt}/>
             <table className='tableScore'>
                 <tr>

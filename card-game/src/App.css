@@ -6,6 +6,11 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   margin: 1em;
   user-select: none;
+  padding: 1%;
+}
+.resetCard { 
+  color:black; 
+  background: rgb(102, 105, 105); 
 }
 
 .activeCard { 

@@ -56,7 +56,7 @@ export default function WordCard(props){
         props.playAgain();
     }
     return (
-        <div className='grid-container'>
+        <div className=''>
             {
                 state.chars.map((c, i) =>
                     <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={props.attempt} completed={state.completed}/>
