@@ -6,7 +6,7 @@ const word = "Hello";
 
 function App() {
   return ( 
-    <div> 
+    <div className="bg"> 
       <ScoreBoard value={word}/>
     </div> 
   ); 

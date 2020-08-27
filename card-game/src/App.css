@@ -35,3 +35,11 @@
   grid-template-columns: auto auto auto;
   padding: 10px;
 }
+
+.bg {
+  background-image: url("bg.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  }
